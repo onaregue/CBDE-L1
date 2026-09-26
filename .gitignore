@@ -5,3 +5,6 @@ __pycache__/
 *.pyc
 
 chroma_db/
+.venv/
+.idea/
+.DS_Store

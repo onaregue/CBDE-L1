@@ -1,0 +1,461 @@
+{
+  "chromadb": "1.5.9",
+  "python": "3.9.6",
+  "machine": "macOS-26.6.2-arm64-arm-64bit",
+  "metrics": [
+    "l2",
+    "cosine"
+  ],
+  "stats_seconds": {
+    "l2": {
+      "min": 0.0003681249999999969,
+      "max": 0.0004786669999999882,
+      "mean": 0.0004151457999999941,
+      "std": 3.257936743952246e-05
+    },
+    "cosine": {
+      "min": 0.0005266250000000028,
+      "max": 0.0006606669999999482,
+      "mean": 0.0005967375999999913,
+      "std": 3.802450825769067e-05
+    }
+  },
+  "vs_postgres": {
+    "l2": {
+      "same_order": 10,
+      "same_set": 10,
+      "max_distance_diff": 3.0734184308656154e-08
+    },
+    "cosine": {
+      "same_order": 10,
+      "same_set": 10,
+      "max_distance_diff": 4.4577859314998136e-07
+    }
+  },
+  "results": {
+    "l2": [
+      {
+        "query_id": 486,
+        "query_text": "while she possessed a beautiful exterior , she certainly seemed to have a greater depth of character than he had originally expected .",
+        "neighbors": [
+          {
+            "id": 6961,
+            "text": "he had finally made it into her heart , mind , and soul , and he once again wanted to be inside her perfection .",
+            "distance_raw": 0.7745094299316406,
+            "distance": 0.8800621739011628
+          },
+          {
+            "id": 101,
+            "text": "while it was good that he had so many male role models , she only hoped he had n't inherited too much of his father 's personality .",
+            "distance_raw": 0.82222580909729,
+            "distance": 0.906766678422454
+          }
+        ],
+        "time_seconds": 0.0004453749999999701,
+        "time_get_seconds": 0.0001291249999999522,
+        "time_query_seconds": 0.0003162500000000179
+      },
+      {
+        "query_id": 617,
+        "query_text": "craning her neck back to look at him , she gave him a teasing grin .",
+        "neighbors": [
+          {
+            "id": 2434,
+            "text": "she cocked her head at him , giving him a teasing smile .",
+            "distance_raw": 0.36209797859191895,
+            "distance": 0.6017457757158906
+          },
+          {
+            "id": 3027,
+            "text": "she gave him a teasing smile .",
+            "distance_raw": 0.3791191577911377,
+            "distance": 0.6157265284126856
+          }
+        ],
+        "time_seconds": 0.0004109159999999834,
+        "time_get_seconds": 0.0001159580000000271,
+        "time_query_seconds": 0.0002949579999999563
+      },
+      {
+        "query_id": 1695,
+        "query_text": "`` you do n't exactly look happy to see me , '' pesh said .",
+        "neighbors": [
+          {
+            "id": 303,
+            "text": "`` nothing would make me happier than if you were to fall in love with pesh . ''",
+            "distance_raw": 0.7479375600814819,
+            "distance": 0.864833833797847
+          },
+          {
+            "id": 3831,
+            "text": "`` do n't you look beautiful , sweetheart , '' he said .",
+            "distance_raw": 0.7843009233474731,
+            "distance": 0.8856076576833971
+          }
+        ],
+        "time_seconds": 0.0004258329999999866,
+        "time_get_seconds": 0.00011691600000002245,
+        "time_query_seconds": 0.00030891699999996414
+      },
+      {
+        "query_id": 1991,
+        "query_text": "pesh started feeling for unusual lumps and bumps on aidan 's head .",
+        "neighbors": [
+          {
+            "id": 8479,
+            "text": "pesh merely shook his head at aidan 's antics .",
+            "distance_raw": 0.6034823656082153,
+            "distance": 0.7768412743979399
+          },
+          {
+            "id": 1932,
+            "text": "after processing pesh 's words , aidan shook his head .",
+            "distance_raw": 0.6226376295089722,
+            "distance": 0.7890739062400759
+          }
+        ],
+        "time_seconds": 0.0003971670000000316,
+        "time_get_seconds": 0.0001147499999999968,
+        "time_query_seconds": 0.0002824170000000348
+      },
+      {
+        "query_id": 2160,
+        "query_text": "his screams cut off to a shriek as he clawed for the sheet , but the damage was done .",
+        "neighbors": [
+          {
+            "id": 5128,
+            "text": "her nails raked over his back as she screamed his name .",
+            "distance_raw": 0.9680804014205933,
+            "distance": 0.9839107690337541
+          },
+          {
+            "id": 2944,
+            "text": "he winced when the medication hit the broken skin .",
+            "distance_raw": 0.9687313437461853,
+            "distance": 0.9842415068194317
+          }
+        ],
+        "time_seconds": 0.00042316700000000207,
+        "time_get_seconds": 0.00011233399999999172,
+        "time_query_seconds": 0.00031083300000001035
+      },
+      {
+        "query_id": 2736,
+        "query_text": "`` just blame emma .",
+        "neighbors": [
+          {
+            "id": 6524,
+            "text": "`` emma ? ''",
+            "distance_raw": 0.6414501667022705,
+            "distance": 0.8009058413460789
+          },
+          {
+            "id": 223,
+            "text": "emma grimaced .",
+            "distance_raw": 0.6466364860534668,
+            "distance": 0.804137106502036
+          }
+        ],
+        "time_seconds": 0.000438082999999978,
+        "time_get_seconds": 0.0001304169999999938,
+        "time_query_seconds": 0.00030766599999998423
+      },
+      {
+        "query_id": 4369,
+        "query_text": "pesh laced his fingers together .",
+        "neighbors": [
+          {
+            "id": 1917,
+            "text": "pesh held up his hand .",
+            "distance_raw": 0.4859963059425354,
+            "distance": 0.6971343528635893
+          },
+          {
+            "id": 7927,
+            "text": "pesh 's hand came to tangle in her hair .",
+            "distance_raw": 0.4987907409667969,
+            "distance": 0.7062511882940777
+          }
+        ],
+        "time_seconds": 0.0003681249999999969,
+        "time_get_seconds": 0.00011470899999999062,
+        "time_query_seconds": 0.0002534160000000063
+      },
+      {
+        "query_id": 4776,
+        "query_text": "when they got downstairs , megan inwardly groaned that the same man was at the reception desk .",
+        "neighbors": [
+          {
+            "id": 5357,
+            "text": "listen man , megan 's downstairs .",
+            "distance_raw": 0.6365249156951904,
+            "distance": 0.7978251159841926
+          },
+          {
+            "id": 6569,
+            "text": "he chuckled as he held out the chair for megan .",
+            "distance_raw": 0.6811271905899048,
+            "distance": 0.8253043018123102
+          }
+        ],
+        "time_seconds": 0.0004786669999999882,
+        "time_get_seconds": 0.00014049999999998786,
+        "time_query_seconds": 0.00033816700000000033
+      },
+      {
+        "query_id": 5398,
+        "query_text": "he waved his hand dismissively .",
+        "neighbors": [
+          {
+            "id": 7142,
+            "text": "she waved her hand dismissively .",
+            "distance_raw": 0.14847782254219055,
+            "distance": 0.385328201073047
+          },
+          {
+            "id": 143,
+            "text": "casey waved her hand dismissively .",
+            "distance_raw": 0.4243895411491394,
+            "distance": 0.6514518717059146
+          }
+        ],
+        "time_seconds": 0.00039254199999999573,
+        "time_get_seconds": 0.00011166699999998198,
+        "time_query_seconds": 0.00028087500000001375
+      },
+      {
+        "query_id": 8324,
+        "query_text": "she stretched and flailed her arms .",
+        "neighbors": [
+          {
+            "id": 8345,
+            "text": "she asked , as she stretched her arms over her head .",
+            "distance_raw": 0.5593140125274658,
+            "distance": 0.7478729922436468
+          },
+          {
+            "id": 4741,
+            "text": "she teasingly pinched his arm .",
+            "distance_raw": 0.5900620222091675,
+            "distance": 0.7681549467452302
+          }
+        ],
+        "time_seconds": 0.00037158300000000866,
+        "time_get_seconds": 0.00011225000000003593,
+        "time_query_seconds": 0.0002593329999999727
+      }
+    ],
+    "cosine": [
+      {
+        "query_id": 486,
+        "query_text": "while she possessed a beautiful exterior , she certainly seemed to have a greater depth of character than he had originally expected .",
+        "neighbors": [
+          {
+            "id": 6961,
+            "text": "he had finally made it into her heart , mind , and soul , and he once again wanted to be inside her perfection .",
+            "distance_raw": 0.3872547745704651,
+            "distance": 0.3872547745704651
+          },
+          {
+            "id": 101,
+            "text": "while it was good that he had so many male role models , she only hoped he had n't inherited too much of his father 's personality .",
+            "distance_raw": 0.41111308336257935,
+            "distance": 0.41111308336257935
+          }
+        ],
+        "time_seconds": 0.0006423749999999728,
+        "time_get_seconds": 0.00010762500000000008,
+        "time_query_seconds": 0.0005347499999999727
+      },
+      {
+        "query_id": 617,
+        "query_text": "craning her neck back to look at him , she gave him a teasing grin .",
+        "neighbors": [
+          {
+            "id": 2434,
+            "text": "she cocked her head at him , giving him a teasing smile .",
+            "distance_raw": 0.18104851245880127,
+            "distance": 0.18104851245880127
+          },
+          {
+            "id": 3027,
+            "text": "she gave him a teasing smile .",
+            "distance_raw": 0.1895594596862793,
+            "distance": 0.1895594596862793
+          }
+        ],
+        "time_seconds": 0.0005866250000000073,
+        "time_get_seconds": 0.00011187499999998352,
+        "time_query_seconds": 0.00047475000000002376
+      },
+      {
+        "query_id": 1695,
+        "query_text": "`` you do n't exactly look happy to see me , '' pesh said .",
+        "neighbors": [
+          {
+            "id": 303,
+            "text": "`` nothing would make me happier than if you were to fall in love with pesh . ''",
+            "distance_raw": 0.3739686608314514,
+            "distance": 0.3739686608314514
+          },
+          {
+            "id": 3831,
+            "text": "`` do n't you look beautiful , sweetheart , '' he said .",
+            "distance_raw": 0.392150342464447,
+            "distance": 0.392150342464447
+          }
+        ],
+        "time_seconds": 0.0005964999999999998,
+        "time_get_seconds": 0.0001106659999999815,
+        "time_query_seconds": 0.0004858340000000183
+      },
+      {
+        "query_id": 1991,
+        "query_text": "pesh started feeling for unusual lumps and bumps on aidan 's head .",
+        "neighbors": [
+          {
+            "id": 8479,
+            "text": "pesh merely shook his head at aidan 's antics .",
+            "distance_raw": 0.3017415404319763,
+            "distance": 0.3017415404319763
+          },
+          {
+            "id": 1932,
+            "text": "after processing pesh 's words , aidan shook his head .",
+            "distance_raw": 0.3113188147544861,
+            "distance": 0.3113188147544861
+          }
+        ],
+        "time_seconds": 0.0006008750000000007,
+        "time_get_seconds": 0.00011275000000005031,
+        "time_query_seconds": 0.0004881249999999504
+      },
+      {
+        "query_id": 2160,
+        "query_text": "his screams cut off to a shriek as he clawed for the sheet , but the damage was done .",
+        "neighbors": [
+          {
+            "id": 5128,
+            "text": "her nails raked over his back as she screamed his name .",
+            "distance_raw": 0.48404037952423096,
+            "distance": 0.48404037952423096
+          },
+          {
+            "id": 2944,
+            "text": "he winced when the medication hit the broken skin .",
+            "distance_raw": 0.48436570167541504,
+            "distance": 0.48436570167541504
+          }
+        ],
+        "time_seconds": 0.0006606669999999482,
+        "time_get_seconds": 0.00010837499999999389,
+        "time_query_seconds": 0.0005522919999999543
+      },
+      {
+        "query_id": 2736,
+        "query_text": "`` just blame emma .",
+        "neighbors": [
+          {
+            "id": 6524,
+            "text": "`` emma ? ''",
+            "distance_raw": 0.3207250237464905,
+            "distance": 0.3207250237464905
+          },
+          {
+            "id": 223,
+            "text": "emma grimaced .",
+            "distance_raw": 0.3233180642127991,
+            "distance": 0.3233180642127991
+          }
+        ],
+        "time_seconds": 0.0006031670000000156,
+        "time_get_seconds": 0.00011270899999998862,
+        "time_query_seconds": 0.0004904580000000269
+      },
+      {
+        "query_id": 4369,
+        "query_text": "pesh laced his fingers together .",
+        "neighbors": [
+          {
+            "id": 1917,
+            "text": "pesh held up his hand .",
+            "distance_raw": 0.24299830198287964,
+            "distance": 0.24299830198287964
+          },
+          {
+            "id": 7927,
+            "text": "pesh 's hand came to tangle in her hair .",
+            "distance_raw": 0.24939560890197754,
+            "distance": 0.24939560890197754
+          }
+        ],
+        "time_seconds": 0.0005266250000000028,
+        "time_get_seconds": 0.00011695800000000034,
+        "time_query_seconds": 0.00040966700000000245
+      },
+      {
+        "query_id": 4776,
+        "query_text": "when they got downstairs , megan inwardly groaned that the same man was at the reception desk .",
+        "neighbors": [
+          {
+            "id": 5357,
+            "text": "listen man , megan 's downstairs .",
+            "distance_raw": 0.31826257705688477,
+            "distance": 0.31826257705688477
+          },
+          {
+            "id": 6569,
+            "text": "he chuckled as he held out the chair for megan .",
+            "distance_raw": 0.3405637741088867,
+            "distance": 0.3405637741088867
+          }
+        ],
+        "time_seconds": 0.0005421669999999823,
+        "time_get_seconds": 0.00011104200000000564,
+        "time_query_seconds": 0.00043112499999997667
+      },
+      {
+        "query_id": 5398,
+        "query_text": "he waved his hand dismissively .",
+        "neighbors": [
+          {
+            "id": 7142,
+            "text": "she waved her hand dismissively .",
+            "distance_raw": 0.07423877716064453,
+            "distance": 0.07423877716064453
+          },
+          {
+            "id": 143,
+            "text": "casey waved her hand dismissively .",
+            "distance_raw": 0.2121945023536682,
+            "distance": 0.2121945023536682
+          }
+        ],
+        "time_seconds": 0.0006120419999999793,
+        "time_get_seconds": 0.00011037499999999589,
+        "time_query_seconds": 0.0005016669999999834
+      },
+      {
+        "query_id": 8324,
+        "query_text": "she stretched and flailed her arms .",
+        "neighbors": [
+          {
+            "id": 8345,
+            "text": "she asked , as she stretched her arms over her head .",
+            "distance_raw": 0.2796570062637329,
+            "distance": 0.2796570062637329
+          },
+          {
+            "id": 4741,
+            "text": "she teasingly pinched his arm .",
+            "distance_raw": 0.29503101110458374,
+            "distance": 0.29503101110458374
+          }
+        ],
+        "time_seconds": 0.0005963330000000044,
+        "time_get_seconds": 0.00011129100000001335,
+        "time_query_seconds": 0.0004850419999999911
+      }
+    ]
+  }
+}
