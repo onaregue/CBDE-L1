@@ -1,12 +1,5 @@
 """
-P1 - Genera los embeddings de cada frase y los guarda en PostgreSQL (sin pgvector).
-
-Uso (despues de P0):
-    python PostgreSQL/P1.py
-
-Conexion: mismas variables de entorno que P0 (PGDATABASE, PGHOST, PGPORT, PGUSER, PGPASSWORD).
-Otras opciones: BATCH_SIZE (500), DEVICE (por defecto cpu, para que los tiempos sean
-comparables entre ordenadores y entre PostgreSQL y Chroma).
+P1 - Generate and store sentence embeddings in PostgreSQL as REAL[].
 """
 import json
 import os
@@ -16,50 +9,39 @@ import time
 from pathlib import Path
 
 import numpy as np
+from dotenv import load_dotenv
 import psycopg2
 from psycopg2.extras import execute_values
 from sentence_transformers import SentenceTransformer
 
 ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(ROOT / ".env")
+
 RESULTS_DIR = ROOT / "results"
-DB_NAME = os.getenv("PGDATABASE", "cbde_l1")
-HOST = os.getenv("PGHOST", "localhost")
-BATCH_SIZE = int(os.getenv("BATCH_SIZE", "2000"))
-DEVICE = os.getenv("DEVICE", "cpu")
+DB_NAME = os.getenv("PGDATABASE")
+HOST = os.getenv("PGHOST") 
+PORT = os.getenv("PGPORT")
+USER = os.getenv("PGUSER")
+PASSWORD = os.getenv("PGPASSWORD")
+BATCH_SIZE = int(os.getenv("BATCH_SIZE"))
 MODEL_NAME = "all-MiniLM-L6-v2"
 
 
 def connect():
     try:
-        return psycopg2.connect(dbname=DB_NAME, host=HOST)
+        return psycopg2.connect(dbname=DB_NAME, host=HOST, port=PORT, user=USER, password=PASSWORD)
     except psycopg2.OperationalError as e:
-        sys.exit(
-            f"No se pudo conectar a PostgreSQL: {e}\n"
-            "Comprueba que el servidor esta arrancado, que has ejecutado P0 y, "
-            "si hace falta, define PGUSER / PGPASSWORD / PGHOST / PGPORT."
-        )
+        sys.exit(f"Error connecting to PostgreSQL: {e}")
 
 
 def stats(times):
     a = np.asarray(times)
-    return {"min": float(a.min()), "max": float(a.max()),
-            "mean": float(a.mean()), "std": float(a.std())}
-
-
-def save_results(name, data):
-    RESULTS_DIR.mkdir(exist_ok=True)
-    with open(RESULTS_DIR / name, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-
-def print_stats(title, s, total):
-    print(f"\n--- {title} ---")
-    print(f"Min:  {s['min']:.6f} s")
-    print(f"Max:  {s['max']:.6f} s")
-    print(f"Media: {s['mean']:.6f} s")
-    print(f"Desviacion estandar: {s['std']:.6f} s")
-    print(f"Tiempo total: {total:.4f} s")
-
+    return {
+        "min": float(a.min()), 
+        "max": float(a.max()),
+        "mean": float(a.mean()), 
+        "std": float(a.std())
+    }
 
 def main():
     conn = connect()
@@ -67,12 +49,10 @@ def main():
 
     cur.execute("SELECT id, sentence FROM corpus ORDER BY id;")
     rows = cur.fetchall()
-    if not rows:
-        sys.exit("La tabla corpus esta vacia: ejecuta primero P0.")
     ids = [r[0] for r in rows]
     sentences = [r[1] for r in rows]
 
-    model = SentenceTransformer(MODEL_NAME, device=DEVICE)
+    model = SentenceTransformer(MODEL_NAME, device="cpu")
     model.encode(sentences[:8], show_progress_bar=False)  # calentamiento (no se mide)
 
     # Tabla aparte (INSERT en lugar de UPDATE: un UPDATE reescribe la fila entera y
@@ -88,20 +68,20 @@ def main():
     """)
     conn.commit()
 
-    gen_times, store_times, norms = [], [], []
+    gen_times, store_times = [], []
     n_statements = 0
     for start in range(0, len(sentences), BATCH_SIZE):
         texts = sentences[start:start + BATCH_SIZE]
 
-        # 1) Generacion del embedding (medida por separado del almacenamiento)
+        # generate embeddings
         t0 = time.perf_counter()
+
         embs = model.encode(texts, batch_size=64, show_progress_bar=False)
         gen_times.append(time.perf_counter() - t0)
-        norms.append(np.linalg.norm(embs, axis=1))
 
-        # 2) Almacenamiento. Convertir numpy -> lista Python -> literal ARRAY[...] es
-        #    parte del coste del desajuste de impedancia, por eso entra en el tiempo.
+        # storage numpy -> lista Python -> literal ARRAY[...] 
         t0 = time.perf_counter()
+
         data = [(ids[start + j], e.tolist()) for j, e in enumerate(embs)]
         execute_values(cur, "INSERT INTO embeddings (id, embedding) VALUES %s",
                        data, template="(%s, %s::real[])", page_size=len(data))
@@ -119,27 +99,40 @@ def main():
     cur.close()
     conn.close()
 
-    norms = np.concatenate(norms)
     gen_s, store_s = stats(gen_times), stats(store_times)
-    print(f"\nEmbeddings guardados: {n_rows} (dim {len(data[0][1])}) | "
-          f"sentencias INSERT: {n_statements}")
-    print(f"Norma L2 de los vectores: min {norms.min():.4f}, max {norms.max():.4f} "
-          "(~1 => normalizados: coseno, L2 y producto escalar dan el mismo ranking)")
-    print(f"Tamano tabla embeddings: {heap_size} (heap) / {total_size} (con TOAST e indice)")
-    print_stats(f"[P1] GENERACION DE EMBEDDINGS (por lote de {BATCH_SIZE}, device={DEVICE})",
-                gen_s, sum(gen_times))
-    print_stats("[P1] ALMACENAMIENTO DE EMBEDDINGS (por lote, incluye commit)",
-                store_s, sum(store_times))
+    print(f"\nStored embeddings: {n_rows} (dim {len(data[0][1])}) | INSERT statements: {n_statements}")
+    print(f"Table size: {heap_size} (heap) / {total_size} (total with toast and indexes)")
 
-    save_results("postgres_P1.json", {
-        "python": platform.python_version(), "machine": platform.platform(),
-        "model": MODEL_NAME, "device": DEVICE, "batch_size": BATCH_SIZE,
-        "rows": n_rows, "insert_statements": n_statements,
-        "norm_min": float(norms.min()), "norm_max": float(norms.max()),
-        "table_size": {"heap": heap_size, "total": total_size},
-        "generation_stats_seconds": gen_s, "storage_stats_seconds": store_s,
-        "generation_times_seconds": gen_times, "storage_times_seconds": store_times,
-    })
+    print(f"\n--- [P1] EMBEDDING GENERATION (per batch of {BATCH_SIZE}, device=cpu) ---")
+    print(f"Min:  {gen_s['min']:.6f} s")
+    print(f"Max:  {gen_s['max']:.6f} s")
+    print(f"Mean: {gen_s['mean']:.6f} s")
+    print(f"Standard deviation: {gen_s['std']:.6f} s")
+    print(f"Total time: {sum(gen_times):.4f} s")
+
+    print(f"\n--- [P1] EMBEDDING STORAGE (per batch, includes commit) ---")
+    print(f"Min:  {store_s['min']:.6f} s")
+    print(f"Max:  {store_s['max']:.6f} s")
+    print(f"Mean: {store_s['mean']:.6f} s")
+    print(f"Standard deviation: {store_s['std']:.6f} s")
+    print(f"Total time: {sum(store_times):.4f} s")
+
+    RESULTS_DIR.mkdir(exist_ok=True)
+    with open(RESULTS_DIR / "postgres_P1.json", "w", encoding="utf-8") as f:
+        json.dump({
+            "python": platform.python_version(),
+            "machine": platform.platform(),
+            "model": MODEL_NAME,
+            "device": "cpu",
+            "batch_size": BATCH_SIZE,
+            "rows": n_rows,
+            "insert_statements": n_statements,
+            "table_size": {"heap": heap_size, "total": total_size},
+            "generation_stats_seconds": gen_s,
+            "storage_stats_seconds": store_s,
+            "generation_times_seconds": gen_times,
+            "storage_times_seconds": store_times
+        }, f, indent=2)
 
 
 if __name__ == "__main__":
