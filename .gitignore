@@ -6,6 +6,8 @@ __pycache__/
 *.pyc
 
 chroma_db/
+chroma_db_c0/
+chroma_test/
 .venv/
 .idea/
 .DS_Store
