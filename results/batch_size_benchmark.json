@@ -1,0 +1,22 @@
+[
+  {
+    "batch_size": 100,
+    "postgres_seconds": 0.02966334799930337,
+    "chroma_seconds": 1.6410814589980873
+  },
+  {
+    "batch_size": 500,
+    "postgres_seconds": 0.03420041500066873,
+    "chroma_seconds": 1.1990930399988429
+  },
+  {
+    "batch_size": 1000,
+    "postgres_seconds": 0.02359154100122396,
+    "chroma_seconds": 1.1303372289985418
+  },
+  {
+    "batch_size": 2000,
+    "postgres_seconds": 0.020348889000160852,
+    "chroma_seconds": 1.01927923599942
+  }
+]
